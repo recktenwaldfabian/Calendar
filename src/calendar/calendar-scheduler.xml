@@ -102,6 +102,14 @@
                 <attributeType name="DateTime" />
             </attributeTypes>
         </property>
+        <property key="bgEventAttr" type="attribute" required="false" entityProperty="eventEntity">
+            <caption>Is Background Event</caption>
+            <category>Event data</category>
+            <description>Allows to specify an event as background event.</description>
+            <attributeTypes>
+                <attributeType name="Boolean" />
+            </attributeTypes>
+        </property>
         <property key="editable" type="boolean" defaultValue="true">
             <caption>Editable</caption>
             <category>Event data</category>

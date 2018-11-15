@@ -382,6 +382,13 @@ define([
                             editable: this.editable,
                             mxobject: obj //we add the mxobject to be able to handle events with relative ease.
                         };
+                        // CUSTOM allow to have background events
+                        if ( this.bgEventAttr ) {
+                            var backgroundEvent = obj.get(this.bgEventAttr);
+                            if ( backgroundEvent ) {
+                                newEvent.rendering = 'background';
+                            }
+                        }
 
                         if (objcolors) {
                             newEvent.backgroundColor = objcolors.backgroundColor;
