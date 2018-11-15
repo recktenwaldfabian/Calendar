@@ -5,6 +5,7 @@
             <widgetFile path="calendar/calendar.xml"/>
             <widgetFile path="calendar/calendar-scheduler.xml"/>
             <widgetFile path="calendar/calendar-simple.xml"/>
+            <widgetFile path="calendar/DraggableCalendarEvent.xml" />
         </widgetFiles>
         <files>
             <file path="calendar/widget/"/>

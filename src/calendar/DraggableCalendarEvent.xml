@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<widget id="calendar.widget.DraggableCalendarEvent" needsEntityContext="true" xmlns="http://www.mendix.com/widget/1.0/">
+    <name>DraggableCalendarEvent</name>
+    <description>The description of this widget.</description>
+
+    <icon />
+
+    <properties>
+        <property key="titleAttr" type="attribute">
+            <caption>Title</caption>
+            <category>Event data</category>
+            <description></description>
+            <attributeTypes>
+                <attributeType name="String" />
+            </attributeTypes>
+        </property>
+    </properties>
+</widget>

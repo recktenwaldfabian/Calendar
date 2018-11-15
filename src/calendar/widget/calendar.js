@@ -21,6 +21,7 @@ define([
     "use strict";
 
     var $ = _jQuery.noConflict(true);
+    window.JQ = $;
 
     fullCalendar.views.fourWeeks = {
         'class': fullCalendar.MonthView,
@@ -489,6 +490,22 @@ define([
             }
         },
 
+        // CUSTOM extension to add external drop events
+        _onEventReceive: function( eventData ) {            
+            mx.data.create({
+                entity: this.eventEntity,
+                callback: function(obj) {
+                    this._setVariables(obj, eventData, this.startAttr, this.endAttr, eventData.allDay);
+                    this._setResourceReference(obj, this.neweventref, null, this._mxObj);
+                    this._setResourceReference(obj, this.resourceEventPath, eventData.resourceId, null);
+                    this._execMF(obj, this.neweventmf);
+                },
+                error: function(err) {
+                    console.warn("Error creating object: ", err);
+                }
+            }, this);
+        },
+
         _getObjectColors: function(obj) {
             logger.debug(this.id + "._getObjectColors");
             var objcolors = null;
@@ -527,7 +544,12 @@ define([
         _setResourceReference: function (event, resourceReference, resourceId, mxObject) {
             logger.debug(this.id + "._setResourceReference");
             if ((resourceId || mxObject) && resourceReference !== "") {
-                event.addReference(resourceReference.split("/")[0], (resourceId ? resourceId : mxObject.getGuid()));
+                var ref = resourceReference.split("/")[0];
+                var refId = (resourceId ? resourceId : mxObject.getGuid());
+                var ok = event.addReference(ref, refId);
+                if ( !ok ) {
+                    logger.error('could not set reference '+ref+' to '+refId );
+                }
             }
         },
 
@@ -650,6 +672,12 @@ define([
                 locale: this.languageSetting,
                 eventLimit: this.limitEvents,
                 scrollTime: this.scrollTime,
+                // CUSTOM extension for external events
+                droppable: true,
+                drop: function(date) {
+                    //alert("Dropped on " + date.format());
+                },
+                eventReceive: lang.hitch(this, this._onEventReceive)            
             };
 
             if (this.monthNamesFormat) {

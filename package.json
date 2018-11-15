@@ -23,8 +23,8 @@
   },
   "generatorVersion": "2.0.1",
   "paths": {
-    "testProjectFolder": "./test/",
-    "testProjectFileName": "[Test] Calendar Widget.mpr"
+    "testProjectFolder": "../../../Mendix/TG_FC_20181114-main/",
+    "testProjectFileName": "TG_FC_20181114.mpr"
   },
   "scripts": {
     "build": "node ./node_modules/gulp/bin/gulp build",
