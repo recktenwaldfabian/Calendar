@@ -345,6 +345,8 @@
                         <enumerationValue key="agendaWeek">Agenda week</enumerationValue>
                         <enumerationValue key="agendaDay">Agenda day</enumerationValue>
                         <enumerationValue key="timelineDay">Day timeline</enumerationValue>
+                        <enumerationValue key="timelineWeek">Week timeline</enumerationValue>
+                        <enumerationValue key="timelineMonth">Month timeline</enumerationValue>
                         <enumerationValue key="timelineThreeDays">3 day timeline</enumerationValue>
                         <enumerationValue key="listDay">List Day</enumerationValue>
                         <enumerationValue key="listWeek">List Week</enumerationValue>
