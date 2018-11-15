@@ -653,6 +653,7 @@ define([
                 events: events,
                 //configs
                 editable: this._allowCreate, //allows resizing events
+                eventDurationEditable: this.eventDurationEditable,
                 selectable: this._allowCreate, //allows selecting a portion of the day or one or multiple days (based on the view)
                 //event handling
                 eventResize: lang.hitch(this, this._onEventChange), //is called when an event is dragged and has changed
