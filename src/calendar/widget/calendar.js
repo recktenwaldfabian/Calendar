@@ -380,6 +380,8 @@ define([
                             end: end,
                             allDay: this.alldayAttr !== "" ? obj.get(this.alldayAttr) : false,
                             editable: this.editable,
+                            //background: 'linear-gradient(to right, var(--color1) 50%, var(--color2) 50%)'
+                            //background: 'linear-gradient(to right, red 50%, green 50%)',
                             mxobject: obj //we add the mxobject to be able to handle events with relative ease.
                         };
                         // CUSTOM allow to have background events
@@ -387,6 +389,15 @@ define([
                             var backgroundEvent = obj.get(this.bgEventAttr);
                             if ( backgroundEvent ) {
                                 newEvent.rendering = 'background';
+                            }
+                        }
+                        
+                        if ( this.splitEventAttr ) {
+                            var splitValue = obj.get(this.splitEventAttr);
+                            if ( splitValue > 0.0 && splitValue < 1.0) {
+                                var splitPercent = Math.floor( splitValue * 100) + '%';
+                                newEvent.background = 'linear-gradient(to right, red '+splitPercent+', green '+splitPercent+')';
+                                //newEvent.background = 'linear-gradient(to right, var(--color1) '+splitPercent+', var(--color2) '+splitPercent+')';
                             }
                         }
 

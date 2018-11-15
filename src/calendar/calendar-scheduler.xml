@@ -110,6 +110,14 @@
                 <attributeType name="Boolean" />
             </attributeTypes>
         </property>
+        <property key="splitEventAttr" type="attribute" required="false" entityProperty="eventEntity">
+            <caption>Split event attribute</caption>
+            <category>Event data</category>
+            <description>Allows to show a background gradient splitting an event at the specified percentage.</description>
+            <attributeTypes>
+                <attributeType name="Decimal" />
+            </attributeTypes>
+        </property>
         <property key="editable" type="boolean" defaultValue="true">
             <caption>Editable</caption>
             <category>Event data</category>

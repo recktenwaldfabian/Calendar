@@ -5915,11 +5915,16 @@ var EventRenderer = FC.EventRenderer = Class.extend({
 
 	// Utility for generating event skin-related CSS properties
 	getSkinCss: function(eventDef) {
-		return {
+		var skinCss = {
 			'background-color': this.getBgColor(eventDef),
 			'border-color': this.getBorderColor(eventDef),
 			color: this.getTextColor(eventDef)
 		};
+		var background = this.getBackground(eventDef);
+		if ( background ) {
+			skinCss.background = background;
+		}
+		return skinCss;
 	},
 
 
@@ -5938,6 +5943,19 @@ var EventRenderer = FC.EventRenderer = Class.extend({
 			val = this.opt('eventBackgroundColor') || this.opt('eventColor');
 		}
 
+		return val;
+	},
+
+	// Queries for caller-specified color, then falls back to default
+	getBackground: function(eventDef) {
+		var objs = this.getStylingObjs(eventDef);
+		var i;
+		var val;
+
+		for (i = 0; i < objs.length && !val; i++) {
+			val = objs[i].eventBackground || objs[i].background;
+		}
+		
 		return val;
 	},
 
@@ -12860,6 +12878,7 @@ var EventDef = FC.EventDef = Class.extend(ParsableModelMixin, {
 	durationEditable: null,
 	color: null,
 	backgroundColor: null,
+	background: null,
 	borderColor: null,
 	textColor: null,
 
@@ -13071,6 +13090,7 @@ EventDef.defineStandardProps({
 	durationEditable: true,
 	color: true,
 	backgroundColor: true,
+	background: true,
 	borderColor: true,
 	textColor: true
 });
@@ -13937,6 +13957,7 @@ var EventSource = Class.extend(ParsableModelMixin, {
 	uid: null,
 	color: null,
 	backgroundColor: null,
+	background: null,
 	borderColor: null,
 	textColor: null,
 	className: null, // array
@@ -14067,6 +14088,7 @@ EventSource.defineStandardProps({
 	// automatically transfer...
 	color: true,
 	backgroundColor: true,
+	background: true,
 	borderColor: true,
 	textColor: true,
 	editable: true,
