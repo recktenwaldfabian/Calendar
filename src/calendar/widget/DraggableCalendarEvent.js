@@ -55,7 +55,8 @@ define([
                 dojoStyle.set(this.domNode, "display", "block");
 
                 this._jNode.data('event', {
-                    title: this._contextObj.get( this.titleAttr )
+                    title: this._contextObj.get( this.titleAttr ),
+                    mxDraggedObjId: this._contextObj.getGuid()
                 });    
             } else {
                 dojoStyle.set(this.domNode, "display", "none");

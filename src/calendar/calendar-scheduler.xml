@@ -458,5 +458,13 @@
                 <attributeType name="String" />
             </attributeTypes>
         </property>
+
+        <!-- Draggable external event -->
+        <property key="externalEventPath" type="entity" isPath="yes" pathType="reference" entityProperty="eventEntity">
+            <caption>External event reference</caption>
+            <category>External Event</category>
+            <description>The association from the event to the external event (set on dragging)</description>
+        </property>
+
     </properties>
 </widget>

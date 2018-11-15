@@ -498,6 +498,10 @@ define([
                     this._setVariables(obj, eventData, this.startAttr, this.endAttr, eventData.allDay);
                     this._setResourceReference(obj, this.neweventref, null, this._mxObj);
                     this._setResourceReference(obj, this.resourceEventPath, eventData.resourceId, null);
+
+                    // set reference to dragged external event
+                    this._setResourceReference(obj, this.externalEventPath, eventData.mxDraggedObjId, null);
+                    
                     this._execMF(obj, this.neweventmf);
                 },
                 error: function(err) {
