@@ -618,6 +618,17 @@ define([
                     if (view.labelViews !== "") {
                         this._buttonText[viewName] = view.labelViews;
                     }
+
+                    var slotLabelFormatView = this.slotLabelFormat.filter( function( option ) {
+                        return option.availableViews == viewName;
+                    });
+
+                    if (slotLabelFormatView.length > 0) {
+                        this._views[viewName].slotLabelFormat = slotLabelFormatView.map( function(option) {
+                            return option.slotLabelFormatOption;
+                        });
+                    }
+
                 }));
             } else {
                 var viewName = this.defaultView;

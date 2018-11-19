@@ -402,6 +402,39 @@
                 </property>
             </properties>
         </property>
+        <property key="slotLabelFormat" type="object" isList="true" required="false">
+            <caption>Time slot label format</caption>
+            <category>Extra</category>
+            <description>Multiple entries allow for stacked time formats</description>
+            <properties>
+                <property key="availableViews" type="enumeration" defaultValue="month" required="true">
+                    <caption>View</caption>
+                    <category>View settings</category>
+                    <description></description>
+                    <enumerationValues>
+                        <enumerationValue key="month">Month</enumerationValue>
+                        <enumerationValue key="fourWeeks">Four weeks</enumerationValue>
+                        <enumerationValue key="basicWeek">Basic week</enumerationValue>
+                        <enumerationValue key="basicDay">Basic day</enumerationValue>
+                        <enumerationValue key="agendaWeek">Agenda week</enumerationValue>
+                        <enumerationValue key="agendaDay">Agenda day</enumerationValue>
+                        <enumerationValue key="timelineDay">Day timeline</enumerationValue>
+                        <enumerationValue key="timelineWeek">Week timeline</enumerationValue>
+                        <enumerationValue key="timelineMonth">Month timeline</enumerationValue>
+                        <enumerationValue key="timelineThreeDays">3 day timeline</enumerationValue>
+                        <enumerationValue key="listDay">List Day</enumerationValue>
+                        <enumerationValue key="listWeek">List Week</enumerationValue>
+                        <enumerationValue key="listMonth">List Month</enumerationValue>
+                        <enumerationValue key="listYear">List Year</enumerationValue>
+                    </enumerationValues>
+                </property>
+                <property key="slotLabelFormatOption" type="string" required="true">
+                    <caption>Custom slotLabelFormat</caption>
+                    <category>View settings</category>
+                    <description>Please refer to https://fullcalendar.io/docs/slotLabelFormat</description>
+                </property>
+            </properties>
+        </property>
 
         <!-- VIEW CHANGE -->
         <property key="onviewchangemf" type="microflow" required="false" entityProperty="contextEntity">
