@@ -459,9 +459,7 @@ define([
             logger.debug(this.id + "._onEventChange");
             var obj = event.mxobject;
             this._setVariables(obj, event, this.startAttr, this.endAttr, event.allDay);
-            if (this.resourceEntity && this.resourceEventPath) {
-                this._setResourceReference(obj, this.neweventref, event.resourceId, this._mxObj);
-            }
+            this._setResourceReference(obj, this.resourceEventPath, event.resourceId, null);
             this._execMF(obj, this.onchangemf);
         },
 
@@ -469,9 +467,7 @@ define([
             logger.debug(this.id + "._onEventClick");
             var obj = event.mxobject;
             this._setVariables(obj, event, this.startAttr, this.endAttr, event.allDay);
-            if (this.resourceEntity && this.resourceEventPath) {
-                this._setResourceReference(obj, this.neweventref, event.resourceId, this._mxObj);
-            }
+            this._setResourceReference(obj, this.resourceEventPath, event.resourceId, null);
             this._execMF(obj, this.onclickmf);
         },
 
