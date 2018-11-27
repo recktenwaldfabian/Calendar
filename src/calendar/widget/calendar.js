@@ -396,8 +396,8 @@ define([
                             var splitValue = obj.get(this.splitEventAttr);
                             if ( splitValue > 0.0 && splitValue < 1.0) {
                                 var splitPercent = Math.floor( splitValue * 100) + '%';
-                                newEvent.background = 'linear-gradient(to right, red '+splitPercent+', green '+splitPercent+')';
-                                //newEvent.background = 'linear-gradient(to right, var(--color1) '+splitPercent+', var(--color2) '+splitPercent+')';
+                                //newEvent.background = 'linear-gradient(to right, red '+splitPercent+', green '+splitPercent+')';
+                                newEvent.background = 'linear-gradient(to right, var(--color1,red) '+splitPercent+', var(--color2,green) '+splitPercent+')';
                             }
                         }
 
