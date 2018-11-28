@@ -702,6 +702,9 @@ define([
                 locale: this.languageSetting,
                 eventLimit: this.limitEvents,
                 scrollTime: this.scrollTime,
+                nowIndicator: this.nowIndicator,
+                minTime: this.calendarStart,
+                maxTime: this.calendarEnd,
                 // CUSTOM extension for external events
                 droppable: true,
                 drop: function(date) {

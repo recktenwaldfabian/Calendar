@@ -512,6 +512,16 @@
                 <attributeType name="String" />
             </attributeTypes>
         </property>
+                <property key="calendarStart" type="string" defaultValue="06:00">
+            <caption>Calendar Start time</caption>
+            <category>Scheduler</category>
+            <description>The calendar start time determines the first timeslot of the calendar. Format: "08:00"</description>
+        </property>
+        <property key="calendarEnd" type="string" defaultValue="18:00">
+            <caption>Calendar End time</caption>
+            <category>Scheduler</category>
+            <description>The calendar start time determines the last timeslot -1h of the calendar. Eg.: For 18:00 the last displayed timeslot is 17:00 Format: "08:00"</description>
+        </property>
 
         <!-- Draggable external event -->
         <property key="externalEventPath" type="entity" isPath="yes" pathType="reference" entityProperty="eventEntity">
