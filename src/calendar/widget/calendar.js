@@ -705,6 +705,8 @@ define([
                 nowIndicator: this.nowIndicator,
                 minTime: this.calendarStart,
                 maxTime: this.calendarEnd,
+                resourceAreaWidth: this.resourceAreaWidth,
+                slotWidth: this.slotWidth,
                 // CUSTOM extension for external events
                 droppable: true,
                 drop: function(date) {

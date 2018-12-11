@@ -10,12 +10,16 @@
         <property key="dataSourceType" type="enumeration" defaultValue="xpath">
             <caption>Data source type</caption>
             <category>Data source</category>
-            <description>- The method of retrieving the objects. A normal XPath uses the Entity and XPath constraint. - The Microflow uses a standalone microflow that returns the objects. - The Microflow with context object can be used if the calendar is placed inside a dataview. This will use the Dataview data source microflow which will send along the Dataview Context object.</description>
+            <description>- The method of retrieving the objects. A normal XPath uses the Entity and XPath constraint. -
+                The Microflow uses a standalone microflow that returns the objects. - The Microflow with context object
+                can be used if the calendar is placed inside a dataview. This will use the Dataview data source
+                microflow which will send along the Dataview Context object.</description>
             <enumerationValues>
                 <enumerationValue key="xpath">XPath retrieve</enumerationValue>
                 <enumerationValue key="mf">Microflow</enumerationValue>
                 <enumerationValue key="contextmf">Microflow with context object</enumerationValue>
-                <enumerationValue key="contextmf_viewspecific">Microflow with context object (Retrieve events for each view)</enumerationValue>
+                <enumerationValue key="contextmf_viewspecific">Microflow with context object (Retrieve events for each
+                    view)</enumerationValue>
             </enumerationValues>
         </property>
         <property key="eventEntity" type="entity" allowNonPersistableEntities="true">
@@ -31,7 +35,8 @@
         <property key="datasourceMf" type="microflow" required="false">
             <caption>Data source microflow</caption>
             <category>Data source</category>
-            <description>Setting this microflow will override the XPath retrieve option, and solely use this microflow to fill the calendar.</description>
+            <description>Setting this microflow will override the XPath retrieve option, and solely use this microflow
+                to fill the calendar.</description>
             <returnType type="Void" />
         </property>
 
@@ -44,13 +49,16 @@
         <property key="contextDatasourceMf" type="microflow" required="false" entityProperty="contextEntity">
             <caption>Dataview data source microflow</caption>
             <category>Dataview context (Optional)</category>
-            <description>Setting this microflow will override the XPath retrieve option, and solely use this microflow to fill the calendar.</description>
+            <description>Setting this microflow will override the XPath retrieve option, and solely use this microflow
+                to fill the calendar.</description>
             <returnType type="Void" />
         </property>
-        <property key="viewContextReference" type="entity" isPath="yes" pathType="reference" required="false" entityProperty="contextEntity">
+        <property key="viewContextReference" type="entity" isPath="yes" pathType="reference" required="false"
+            entityProperty="contextEntity">
             <caption>Reference to ViewRender entity (if used)</caption>
             <category>Dataview context (Optional)</category>
-            <description>Select the path from the dataview object to the view render object to constrain on it within your microflow.</description>
+            <description>Select the path from the dataview object to the view render object to constrain on it within
+                your microflow.</description>
         </property>
         <property key="startPos" type="attribute" required="false" entityProperty="contextEntity">
             <caption>Start pos attribute</caption>
@@ -122,7 +130,7 @@
             <caption>Editable</caption>
             <category>Event data</category>
             <description>Sets the editability of events. Defaults to true.</description>
-        </property>        
+        </property>
         <property key="eventDurationEditable" type="boolean" defaultValue="true">
             <caption>Duration Editable</caption>
             <category>Event data</category>
@@ -200,7 +208,8 @@
         <property key="showWeekNumbers" type="boolean" defaultValue="false">
             <caption>Show weeknumbers</caption>
             <category>View settings</category>
-            <description>Whether or not to show weeknumbers in the calendar. If 'YES' a column with weeknumbers will be added.</description>
+            <description>Whether or not to show weeknumbers in the calendar. If 'YES' a column with weeknumbers will be
+                added.</description>
         </property>
         <property key="weeknumberTitle" type="string" required='false' defaultValue='W'>
             <caption>Weeknumber Title</caption>
@@ -220,7 +229,8 @@
         <property key="timeFormat" type="translatableString" required="false">
             <caption>Custom time format</caption>
             <category>View settings</category>
-            <description>Default: h:mm{ - h:mm}. For more information: http://arshaw.com/fullcalendar/docs/text/timeFormat/</description>
+            <description>Default: h:mm{ - h:mm}. For more information:
+                http://arshaw.com/fullcalendar/docs/text/timeFormat/</description>
         </property>
         <property key="dateFormat" type="translatableString" required="false">
             <caption>Custom date format</caption>
@@ -312,42 +322,47 @@
         <property key="alldaycaption" type="translatableString" required="false">
             <caption>All-day caption</caption>
             <category>Extra</category>
-            <description>The text titling the "all-day" slot at the top of the calendar. Default: all-day. This option only applies to Agendaweek en AgendaDay views.</description>
+            <description>The text titling the "all-day" slot at the top of the calendar. Default: all-day. This option
+                only applies to Agendaweek en AgendaDay views.</description>
         </property>
         <property key="businessHours" type="boolean" defaultValue="false">
             <caption>Business hours</caption>
             <category>Extra</category>
-            <description>Use business hours (highlighted in Calendar). This option only applies to Agendaweek en AgendaDay views. Defaults to false.</description>
+            <description>Use business hours (highlighted in Calendar). This option only applies to Agendaweek en
+                AgendaDay views. Defaults to false.</description>
         </property>
         <property key="startTime" type="string" defaultValue="08:00">
             <caption>Start time</caption>
             <category>Extra</category>
-            <description>The start time for the business hours of each week day. This option only applies to Agendaweek en AgendaDay views. Format: "08:00"</description>
+            <description>The start time for the business hours of each week day. This option only applies to Agendaweek
+                en AgendaDay views. Format: "08:00"</description>
         </property>
         <property key="endTime" type="string" defaultValue="17:00">
             <caption>End time</caption>
             <category>Extra</category>
-            <description>The end time for the business hours of each week day. This option only applies to Agendaweek en AgendaDay views. Format: "17:00"</description>
+            <description>The end time for the business hours of each week day. This option only applies to Agendaweek
+                en AgendaDay views. Format: "17:00"</description>
         </property>
         <property key="scrollTime" type="string" defaultValue="00:00">
             <caption>Scroll time</caption>
             <category>Extra</category>
-            <description>Determines how far down the scroll pane is initially scrolled down. This option only applies to Agendaweek and AgendaDay views. Format: "08:00"</description>
+            <description>Determines how far down the scroll pane is initially scrolled down. This option only applies
+                to Agendaweek and AgendaDay views. Format: "08:00"</description>
         </property>
         <property key="todayButton" type="boolean" defaultValue="true">
-           <caption>Show 'today' button</caption>
-           <category>Extra</category>
-           <description></description>
+            <caption>Show 'today' button</caption>
+            <category>Extra</category>
+            <description></description>
         </property>
         <property key="prevnextButton" type="boolean" defaultValue="true">
-           <caption>Show pagination button</caption>
-           <category>Extra</category>
-           <description></description>
+            <caption>Show pagination button</caption>
+            <category>Extra</category>
+            <description></description>
         </property>
         <property key="singleButton" type="boolean" defaultValue="true">
-           <caption>Show single button</caption>
-           <category>Extra</category>
-           <description>If you have a single view, should this button be shown?</description>
+            <caption>Show single button</caption>
+            <category>Extra</category>
+            <description>If you have a single view, should this button be shown?</description>
         </property>
         <property key="notused1" type="object" isList="true" required="false">
             <caption>Available views</caption>
@@ -398,7 +413,8 @@
                 <property key="eventLimit" type="string" defaultValue="-1" required="false">
                     <caption>Event limit</caption>
                     <category>Event</category>
-                    <description>The maximum number of events to display on a single day. When there are too many events, a link that looks like "+2 more" is displayed.</description>
+                    <description>The maximum number of events to display on a single day. When there are too many
+                        events, a link that looks like "+2 more" is displayed.</description>
                 </property>
             </properties>
         </property>
@@ -440,18 +456,21 @@
         <property key="onviewchangemf" type="microflow" required="false" entityProperty="contextEntity">
             <caption>On view change</caption>
             <category>View Change</category>
-            <description>Microflow triggered when a new date-range is rendered, or when the view type switches.(http://fullcalendar.io/docs/display/viewRender/)</description>
+            <description>Microflow triggered when a new date-range is rendered, or when the view type
+                switches.(http://fullcalendar.io/docs/display/viewRender/)</description>
             <returnType type="Void" />
         </property>
         <property key="viewChangeEntity" type="entity" required="false" allowNonPersistableEntities="true">
             <caption>Entity</caption>
             <category>View Change</category>
-            <description>The entity being passed to the on view change microflow. Reflecting the view change start and end date.</description>
+            <description>The entity being passed to the on view change microflow. Reflecting the view change start and
+                end date.</description>
         </property>
         <property key="viewStartAttr" type="attribute" entityProperty="viewChangeEntity" required="false">
             <caption>Start date</caption>
             <category>View Change</category>
-            <description>The starting date of the view (fullcalendar's intervalStart of the view). E.g. first day of the month when rendering month view.</description>
+            <description>The starting date of the view (fullcalendar's intervalStart of the view). E.g. first day of
+                the month when rendering month view.</description>
             <attributeTypes>
                 <attributeType name="DateTime" />
             </attributeTypes>
@@ -459,7 +478,8 @@
         <property key="viewEndAttr" type="attribute" entityProperty="viewChangeEntity" required="false">
             <caption>End date</caption>
             <category>View Change</category>
-            <description>The ending date of the view (fullcalendar's intervalEnd of the view). E.g. last day of the month when rendering month view</description>
+            <description>The ending date of the view (fullcalendar's intervalEnd of the view). E.g. last day of the
+                month when rendering month view</description>
             <attributeTypes>
                 <attributeType name="DateTime" />
             </attributeTypes>
@@ -469,7 +489,8 @@
         <property key="schedulerLicenseKey" type="string">
             <caption>Scheduler License Key</caption>
             <category>Scheduler</category>
-            <description>Read the following licence agreement http://fullcalendar.io/scheduler/license/ and get a license.</description>
+            <description>Read the following licence agreement http://fullcalendar.io/scheduler/license/ and get a
+                license.</description>
         </property>
         <property key="resourceEntity" type="entity">
             <caption>Resource Entity</caption>
@@ -499,12 +520,14 @@
             <category>Scheduler</category>
             <description>The group entity (used for Scheduler).</description>
         </property>
-        <property key="groupResourcePath" type="entity" isPath="yes" pathType="reference" entityProperty="resourceEntity" required="false">
+        <property key="groupResourcePath" type="entity" isPath="yes" pathType="reference" entityProperty="resourceEntity"
+            required="false">
             <caption>Group resource reference</caption>
             <category>Scheduler</category>
             <description>The path from the resource to the group</description>
         </property>
-        <property key="groupTitle" type="attribute" isPath="optional" pathType="reference" entityProperty="groupEntity" required="false">
+        <property key="groupTitle" type="attribute" isPath="optional" pathType="reference" entityProperty="groupEntity"
+            required="false">
             <caption>Group Title</caption>
             <category>Scheduler</category>
             <description>Title of the group</description>
@@ -512,7 +535,7 @@
                 <attributeType name="String" />
             </attributeTypes>
         </property>
-                <property key="calendarStart" type="string" defaultValue="06:00">
+        <property key="calendarStart" type="string" defaultValue="06:00">
             <caption>Calendar Start time</caption>
             <category>Scheduler</category>
             <description>The calendar start time determines the first timeslot of the calendar. Format: "08:00"</description>
@@ -520,9 +543,19 @@
         <property key="calendarEnd" type="string" defaultValue="18:00">
             <caption>Calendar End time</caption>
             <category>Scheduler</category>
-            <description>The calendar start time determines the last timeslot -1h of the calendar. Eg.: For 18:00 the last displayed timeslot is 17:00 Format: "08:00"</description>
+            <description>The calendar start time determines the last timeslot -1h of the calendar. Eg.: For 18:00 the
+                last displayed timeslot is 17:00 Format: "08:00"</description>
         </property>
-
+        <property key="resourceAreaWidth" type="string" defaultValue="30%">
+            <caption>Resource Area Width</caption>
+            <category>Scheduler</category>
+            <description>The initial width of the resource area in percent.</description>
+        </property>
+        <property key="slotWidth" type="string" defaultValue="15">
+            <caption>Slot Width</caption>
+            <category>Scheduler</category>
+            <description>The initial width of the slots in pixel.</description>
+        </property>
         <!-- Draggable external event -->
         <property key="externalEventPath" type="entity" isPath="yes" pathType="reference" entityProperty="eventEntity">
             <caption>External event reference</caption>
