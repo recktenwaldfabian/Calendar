@@ -388,6 +388,7 @@
                         <enumerationValue key="listWeek">List Week</enumerationValue>
                         <enumerationValue key="listMonth">List Month</enumerationValue>
                         <enumerationValue key="listYear">List Year</enumerationValue>
+                        <enumerationValue key="custom">custom</enumerationValue>
                     </enumerationValues>
                 </property>
                 <property key="timeFormatViews" type="translatableString" required="false">
@@ -415,6 +416,11 @@
                     <category>Event</category>
                     <description>The maximum number of events to display on a single day. When there are too many
                         events, a link that looks like "+2 more" is displayed.</description>
+                </property>
+                <property key="customSettings" multiline="true" type="string" defaultValue="" required="false">
+                    <caption>Custom Settings</caption>
+                    <category>Custom</category>
+                    <description>Here you can enter custom settings as JSON-Object.</description>
                 </property>
             </properties>
         </property>

@@ -629,6 +629,18 @@ define([
                         });
                     }
 
+                    if (view.customSettings !== "") {
+                        try {
+                            var cs = JSON.parse(view.customSettings);
+                            var key;
+                            for (key in cs) {
+                                this._views[viewName][key] = cs[key];
+                            }
+                        } catch(err){
+                            console.error("Couldn't parse custom JSON settings for view: "+ viewName + '\n' + err.message); 
+                        }
+                    }
+
                 }));
             } else {
                 var viewName = this.defaultView;
