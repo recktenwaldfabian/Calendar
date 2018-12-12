@@ -362,53 +362,55 @@ define([
             $.each(objs, lang.hitch(this, function(index, obj) {
 
                 var promise = $.Deferred(lang.hitch(this, function(callback) {
-                    obj.fetch(resourceEventPath, lang.hitch(this, function(resource) {
-                        var resourceRefId = (resource !== null) ? resource.getGuid() : 0;
+                    obj.fetch(resourceEventPath, lang.hitch(this, function(resources) {
+                        resources.forEach(lang.hitch(this,function(resource) {
+                            var resourceRefId = (resource !== null) ? resource.getGuid() : 0;
 
-                        //get the colors
-                        if (this._colors.length > 0 && this.typeAttr) {
-                            objcolors = this._getObjectColors(obj);
-                        }
-                        //get the dates
-                        var start = new Date(obj.get(this.startAttr));
-                        var end = new Date(obj.get(this.endAttr));
-                            //create a new calendar event
-                        var newEvent = {
-                            title: titles[obj.getGuid()],
-                            resourceId: resourceRefId,
-                            start: start,
-                            end: end,
-                            allDay: this.alldayAttr !== "" ? obj.get(this.alldayAttr) : false,
-                            editable: this.editable,
-                            //background: 'linear-gradient(to right, var(--color1) 50%, var(--color2) 50%)'
-                            //background: 'linear-gradient(to right, red 50%, green 50%)',
-                            mxobject: obj //we add the mxobject to be able to handle events with relative ease.
-                        };
-                        // CUSTOM allow to have background events
-                        if ( this.bgEventAttr ) {
-                            var backgroundEvent = obj.get(this.bgEventAttr);
-                            if ( backgroundEvent ) {
-                                newEvent.rendering = 'background';
+                            //get the colors
+                            if (this._colors.length > 0 && this.typeAttr) {
+                                objcolors = this._getObjectColors(obj);
                             }
-                        }
-                        
-                        if ( this.splitEventAttr ) {
-                            var splitValue = obj.get(this.splitEventAttr);
-                            if ( splitValue > 0.0 && splitValue < 1.0) {
-                                var splitPercent = Math.floor( splitValue * 100) + '%';
-                                //newEvent.background = 'linear-gradient(to right, red '+splitPercent+', green '+splitPercent+')';
-                                newEvent.background = 'linear-gradient(to right, var(--color1,red) '+splitPercent+', var(--color2,green) '+splitPercent+')';
+                            //get the dates
+                            var start = new Date(obj.get(this.startAttr));
+                            var end = new Date(obj.get(this.endAttr));
+                                //create a new calendar event
+                            var newEvent = {
+                                title: titles[obj.getGuid()],
+                                resourceId: resourceRefId,
+                                start: start,
+                                end: end,
+                                allDay: this.alldayAttr !== "" ? obj.get(this.alldayAttr) : false,
+                                editable: this.editable,
+                                //background: 'linear-gradient(to right, var(--color1) 50%, var(--color2) 50%)'
+                                //background: 'linear-gradient(to right, red 50%, green 50%)',
+                                mxobject: obj //we add the mxobject to be able to handle events with relative ease.
+                            };
+                            // CUSTOM allow to have background events
+                            if ( this.bgEventAttr ) {
+                                var backgroundEvent = obj.get(this.bgEventAttr);
+                                if ( backgroundEvent ) {
+                                    newEvent.rendering = 'background';
+                                }
                             }
-                        }
+                            
+                            if ( this.splitEventAttr ) {
+                                var splitValue = obj.get(this.splitEventAttr);
+                                if ( splitValue > 0.0 && splitValue < 1.0) {
+                                    var splitPercent = Math.floor( splitValue * 100) + '%';
+                                    //newEvent.background = 'linear-gradient(to right, red '+splitPercent+', green '+splitPercent+')';
+                                    newEvent.background = 'linear-gradient(to right, var(--color1,red) '+splitPercent+', var(--color2,green) '+splitPercent+')';
+                                }
+                            }
 
-                        if (objcolors) {
-                            newEvent.backgroundColor = objcolors.backgroundColor;
-                            newEvent.borderColor = objcolors.borderColor;
-                            newEvent.textColor = objcolors.textColor;
-                        }
+                            if (objcolors) {
+                                newEvent.backgroundColor = objcolors.backgroundColor;
+                                newEvent.borderColor = objcolors.borderColor;
+                                newEvent.textColor = objcolors.textColor;
+                            }
 
-                        events.push(newEvent);
-                        callback.resolve();
+                            events.push(newEvent);
+                            callback.resolve();
+                        }));
                     }));
                 }));
                 promises.push(promise);
