@@ -503,7 +503,7 @@
             <category>Scheduler</category>
             <description>The resource entity (used for Scheduler).</description>
         </property>
-        <property key="resourceEventPath" type="entity" isPath="yes" pathType="referenceSet" entityProperty="eventEntity">
+        <property key="resourceEventPath" type="entity" isPath="yes" pathType="reference" entityProperty="eventEntity">
             <caption>Resource reference</caption>
             <category>Scheduler</category>
             <description>The association from the resource to the event</description>
