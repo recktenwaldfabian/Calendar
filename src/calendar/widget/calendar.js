@@ -39,7 +39,10 @@ define([
         _eventIsClicked: false,
         _views: null,
         _colors: null,
+        _globalEventColors: null,
         _eventSource: null,
+        _globalEventSource: null,
+        _AbsencesSource: null,
         _fcNode: null,
         _availableViews: null,
         _allowCreate: true,
@@ -50,10 +53,13 @@ define([
         postCreate: function() {
             logger.debug(this.id + ".postCreate");
             this._colors = this.notused; //workaround for legacy users
+            this._globalEventColors = this.notused2;
             this._availableViews = this.notused1; //workaround for legacy users
             this._setDefaults(); //set default formatting options
             this._handles = [];
             this._eventSource = [];
+            this._globalEventSource = [];
+            this._AbsencesSource = [];
             this._allowCreate = this.editable || (this.neweventmf !== null && this.neweventmf !== "");
             this._shouldDestroyOnUpdate = this._hasDynamicCalendarPropertiesConfigured();
         },
@@ -138,6 +144,44 @@ define([
             });
         },
 
+        _getGlobalEvents: function(entity, callback) {
+            logger.debug(this.id + "._getGlobalEvents");
+            mx.data.get({
+                xpath: "//" + this.globalEventEntity,
+                callback: lang.hitch(this, function(objs) {
+                    logger.debug(this.id + "._getGlobalEvents callback:", objs ? objs.length + " objects" : "null");
+                    if (callback) {
+                        callback(objs);
+                    }
+                }),
+                error: function(error) {
+                    if (callback) {
+                        callback();
+                    }
+                    console.warn(error.description);
+                }
+            });
+        },
+
+        _getAbsences: function(entity, callback){
+            logger.debug(this.id + "._getAbsences");
+            mx.data.get({
+                xpath: "//" + this.absenceEntity,
+                callback: lang.hitch(this, function(objs) {
+                    logger.debug(this.id + "._getAbsences callback:", objs ? objs.length + " objects" : "null");
+                    if (callback) {
+                        callback(objs);
+                    }
+                }),
+                error: function(error) {
+                    if (callback) {
+                        callback();
+                    }
+                    console.warn(error.description);
+                }
+            });
+        },
+
         _prepareResources: function(resources) {
             var resourceTitle = this.resourceTitle;
             var groupTitle = this.groupTitle;
@@ -159,6 +203,50 @@ define([
                 }
                 node.fullCalendar("addResource", fullCalenderResource);
             }, this);
+        },
+
+        _prepareGlobalEvents: function(objs) {
+            logger.debug(this.id + "._prepareEvents");
+            var objTitles = null,
+                split = null,
+            objTitles = {};
+            split = this.globalEventTitleAttr.split("/");
+
+            if (typeof objs === "undefined" || objs === "" || objs.length === 0) {
+                this._clearCalendar();
+                return;
+            }
+
+            if (split.length === 1) {
+                // titleAttr is a simple attribute and the key of objTitles is
+                // the GUID of the object and the title is the attribute.
+                $.each(objs, lang.hitch(this, function(index, obj) {
+                    objTitles[obj.getGuid()] = obj.get(this.globalEventTitleAttr);
+                }));
+                this._createGlobalEvents(objs, objTitles);
+            }
+        },
+
+        _prepareAbsences: function(objs) {
+            logger.debug(this.id + "._prepareAbsences");
+            var objTitles = null,
+                split = null,
+            objTitles = {};
+            split = this.absenceTitleAttr.split("/");
+
+            if (typeof objs === "undefined" || objs === "" || objs.length === 0) {
+                this._clearCalendar();
+                return;
+            }
+
+            if (split.length === 1) {
+                // titleAttr is a simple attribute and the key of objTitles is
+                // the GUID of the object and the title is the attribute.
+                $.each(objs, lang.hitch(this, function(index, obj) {
+                    objTitles[obj.getGuid()] = obj.get(this.absenceTitleAttr);
+                }));
+                this._createAbsences(objs, objTitles);
+            }
         },
 
         _resetSubscriptions: function() {
@@ -215,6 +303,16 @@ define([
             if (this.resourceEntity) {
                 logger.debug(this.id + "._fetchObjects resources");
                 this._getResources(this.resourceEntity, lang.hitch(this, this._prepareResources));
+            }
+
+            if (this.globalEventEntity) {
+                logger.debug(this.id + "._fetchObjects globalEventEntity");
+                this._getGlobalEvents(this.globalEventEntity, lang.hitch(this, this._prepareGlobalEvents));
+            }
+
+            if (this.absenceEntity) {
+                logger.debug(this.id + "._fetchObjects absenceEntity");
+                this._getAbsences(this.absenceEntity, lang.hitch(this, this._prepareAbsences));
             }
 
             if (this.dataSourceType === "xpath") {
@@ -351,6 +449,74 @@ define([
             }
         },
 
+        _createGlobalEvents: function(objs, titles) {
+            logger.debug(this.id + "._createGlobalEvents");
+            var globalEvents = [],
+                objcolors = null,
+                promises = [],
+                resources = this._fcNode.fullCalendar("getResources");
+
+            $.each(objs, lang.hitch(this, function(index, obj) {
+                var promise = $.Deferred(lang.hitch(this, function(callback) {
+
+                    //get the dates
+                    var start = new Date(obj.get(this.globalEventStart));
+                    var end = new Date(obj.get(this.globalEventEnd));
+                    //create a new calendar event
+                    var newEvent = {
+                        title: titles[obj.getGuid()],
+                        resourcesId: resources.map(function(resource) {return resource.id }),
+                        start: start,
+                        end: end,
+                        editable: false,
+                        //background: 'linear-gradient(to right, var(--color1) 50%, var(--color2) 50%)'
+                        //background: 'linear-gradient(to right, red 50%, green 50%)',
+                        mxobject: obj //we add the mxobject to be able to handle events with relative ease.
+                    };
+                    // CUSTOM allow to have background events
+                    //get the colors
+                    if (this._globalEventColors.length > 0 && this.globalEventTypeAttr) {
+                        var key = obj.get(this.globalEventTypeAttr);
+                        var enumItem = this._globalEventColors.find(function(globalEventEnumKey){ return globalEventEnumKey = key });
+                        if (enumItem) {
+                            newEvent.backgroundColor = enumItem.globalEventBgColor;
+                        }
+                    }
+                    if ( this.bgEventAttr ) {
+                        var backgroundEvent = obj.get(this.bgEventAttr);
+                        if ( backgroundEvent ) {
+                            newEvent.rendering = 'background';
+                        }
+                    }
+                    globalEvents.push(newEvent);
+                    callback.resolve();
+                }));
+                promises.push(promise);
+            }));
+
+            $.when.apply($, promises).done(lang.hitch(this, function() {
+                //check if the calendar already exists (are we just updating events here?)
+                if (this._fcNode.hasClass("fc")) {
+                    //if it does, remove, add the new source and refetch
+                    this._fcNode.fullCalendar("render");
+                    if (this._globalEventSource && this._globalEventSource.length >= 1) {
+                        this._fcNode.fullCalendar("removeEventSource", this._globalEventSource);
+                    }
+
+                    this._fcNode.fullCalendar("addEventSource", globalEvents);
+                    this._fcNode.fullCalendar("refetchEvents");
+
+                    if (this._mxObj && this.startPos !== "" && this._mxObj.get(this.startPos)) {
+                        this._fcNode.fullCalendar("gotoDate", new Date(this._mxObj.get(this.startPos)));
+                    }
+                } else {
+                    //else create the calendar
+                    this._renderCalendar(globalEvents);
+                }
+                this._globalEventSource = globalEvents;
+            }));
+        },
+
         _createEvents: function(objs, titles) {
             logger.debug(this.id + "._createEvents");
             var events = [],
@@ -434,6 +600,76 @@ define([
                     this._renderCalendar(events);
                 }
                 this._eventSource = events;
+            }));
+        },
+
+        _createAbsences: function(objs, titles) {
+            logger.debug(this.id + "._createAbsences");
+            var events = [],
+                objcolors = null,
+                resourceEventPath = this.absenceEntityPath,
+                promises = [];
+
+            $.each(objs, lang.hitch(this, function(index, obj) {
+
+                var promise = $.Deferred(lang.hitch(this, function(callback) {
+                    obj.fetch(resourceEventPath, lang.hitch(this, function(resource) {
+                        var resourceRefId = (resource !== null) ? resource.getGuid() : 0;
+
+                        //get the colors
+                        // if (this._colors.length > 0 && this.typeAttr) {
+                        //     objcolors = this._getObjectColors(obj);
+                        // }
+                        //get the dates
+                        var start = new Date(obj.get(this.absenceStart));
+                        var end = new Date(obj.get(this.absenceEnd));
+                            //create a new calendar event
+                        var newEvent = {
+                            title: titles[obj.getGuid()],
+                            resourceId: resourceRefId,
+                            start: start,
+                            end: end,
+                            allDay: false,
+                            editable: false,
+                            //background: 'linear-gradient(to right, var(--color1) 50%, var(--color2) 50%)'
+                            //background: 'linear-gradient(to right, red 50%, green 50%)',
+                            mxobject: obj //we add the mxobject to be able to handle events with relative ease.
+                        };
+                        // CUSTOM allow to have background events
+                        if ( this.bgEventAttr ) {
+                            var backgroundEvent = obj.get(this.bgEventAttr);
+                            if ( backgroundEvent ) {
+                                newEvent.rendering = 'background';
+                            }
+                        }
+                        
+                        events.push(newEvent);
+                        callback.resolve();
+                    }));
+                }));
+                promises.push(promise);
+            }));
+
+            $.when.apply($, promises).done(lang.hitch(this, function() {
+                //check if the calendar already exists (are we just updating events here?)
+                if (this._fcNode.hasClass("fc")) {
+                    //if it does, remove, add the new source and refetch
+                    this._fcNode.fullCalendar("render");
+                    if (this._AbsencesSource && this._AbsencesSource.length >= 1) {
+                        this._fcNode.fullCalendar("removeEventSource", this._AbsencesSource);
+                    }
+
+                    this._fcNode.fullCalendar("addEventSource", events);
+                    this._fcNode.fullCalendar("refetchEvents");
+
+                    if (this._mxObj && this.startPos !== "" && this._mxObj.get(this.startPos)) {
+                        this._fcNode.fullCalendar("gotoDate", new Date(this._mxObj.get(this.startPos)));
+                    }
+                } else {
+                    //else create the calendar
+                    this._renderCalendar(events);
+                }
+                this._AbsencesSource = events;
             }));
         },
 

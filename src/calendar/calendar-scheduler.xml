@@ -569,5 +569,139 @@
             <description>The association from the event to the external event (set on dragging)</description>
         </property>
 
+        <!--- Global Events -->
+        <property key="globalEventEntity" type="entity" required="false">
+            <caption>Global Event Entity</caption>
+            <category>Global Events</category>
+            <description>The entity which will be used for showing global events, like public holidays or weekends.
+                Objects of this Entity will be shown for all resources</description>
+        </property>
+
+        <property key="globalEventTitleAttr" type="attribute" entityProperty="globalEventEntity">
+            <caption>Global Event Title</caption>
+            <category>Global Events</category>
+            <description></description>
+            <attributeTypes>
+                <attributeType name="String" />
+            </attributeTypes>
+        </property>
+        <property key="globalEventStart" type="attribute" entityProperty="globalEventEntity">
+            <caption>Global Event Start</caption>
+            <category>Global Events</category>
+            <description></description>
+            <attributeTypes>
+                <attributeType name="DateTime" />
+            </attributeTypes>
+        </property>
+        <property key="globalEventEnd" type="attribute" entityProperty="globalEventEntity">
+            <caption>Global Event End</caption>
+            <category>Global Events</category>
+            <description></description>
+            <attributeTypes>
+                <attributeType name="DateTime" />
+            </attributeTypes>
+        </property>
+        <property key="globalEventisBackground" type="attribute" entityProperty="globalEventEntity">
+            <caption>Global Event Background Event</caption>
+            <category>Global Events</category>
+            <description></description>
+            <attributeTypes>
+                <attributeType name="Boolean" />
+            </attributeTypes>
+        </property>
+        <property key="globalEventTypeAttr" type="attribute" entityProperty="globalEventEntity" required="false">
+            <caption>Global Event Type</caption>
+            <category>Global Events</category>
+            <description></description>
+            <attributeTypes>
+                <attributeType name="Enum" />
+            </attributeTypes>
+        </property>
+        <property key="notused2" type="object" isList="true" required="false">
+            <caption>Global Event Background Colors</caption>
+            <category>Global Events</category>
+            <description></description>
+            <properties>
+                <property key="globalEventEnumKey" type="string" required="false">
+                    <caption>Enumeration key</caption>
+                    <category>Global Events</category>
+                    <description></description>
+                </property>
+                <property key="globalEventBgColor" type="string" required="false">
+                    <caption>Background color</caption>
+                    <category>Global Events</category>
+                    <description></description>
+                </property>
+            </properties>
+        </property>
+
+        <!--- Absence Events -->
+        <property key="absenceEntity" type="entity" required="false">
+            <caption>Absence Entity</caption>
+            <category>Absences</category>
+            <description>The entity which will be used for showing resource specific absences.</description>
+        </property>
+        <property key="absenceEntityPath" type="entity" isPath="yes" pathType="reference" entityProperty="absenceEntity">
+            <caption>Absence Resource Path</caption>
+            <category>Absences</category>
+            <description>The path to the resource entity</description>
+        </property>
+        <property key="absenceTitleAttr" type="attribute" entityProperty="absenceEntity">
+            <caption>Absence Title</caption>
+            <category>Absences</category>
+            <description></description>
+            <attributeTypes>
+                <attributeType name="String" />
+            </attributeTypes>
+        </property>
+        <property key="absenceStart" type="attribute" entityProperty="absenceEntity">
+            <caption>Absence Start</caption>
+            <category>Absences</category>
+            <description></description>
+            <attributeTypes>
+                <attributeType name="DateTime" />
+            </attributeTypes>
+        </property>
+        <property key="absenceEnd" type="attribute" entityProperty="absenceEntity">
+            <caption>Absence End</caption>
+            <category>Absences</category>
+            <description></description>
+            <attributeTypes>
+                <attributeType name="DateTime" />
+            </attributeTypes>
+        </property>
+        <property key="absenceIsBackground" type="attribute" entityProperty="absenceEntity">
+            <caption>Absence Background Event</caption>
+            <category>Absences</category>
+            <description></description>
+            <attributeTypes>
+                <attributeType name="Boolean" />
+            </attributeTypes>
+        </property>
+        <property key="absenceTypeAttr" type="attribute" entityProperty="absenceEntity" required="false">
+            <caption>Absence Type</caption>
+            <category>Absences</category>
+            <description></description>
+            <attributeTypes>
+                <attributeType name="Enum" />
+            </attributeTypes>
+        </property>
+        <property key="notused3" type="object" isList="true" required="false">
+            <caption>Absence Background Colors</caption>
+            <category>Absences</category>
+            <description></description>
+            <properties>
+                <property key="absenceEnumKey" type="string" required="false">
+                    <caption>Enumeration key</caption>
+                    <category>Absences</category>
+                    <description></description>
+                </property>
+                <property key="absenceBgColor" type="string" required="false">
+                    <caption>Background color</caption>
+                    <category>Absences</category>
+                    <description></description>
+                </property>
+            </properties>
+        </property>
     </properties>
 </widget>
